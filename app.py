@@ -32,7 +32,8 @@ def login_data():
             with open("logs.txt", "a") as file:
                 file.write(f"Zalogowano Username: {username}, Password: {password}\n")
 
-            return f'Tak'
+            redirect(url_for('admin_panel'))
+            return f'Tak' 
         else:
             # Logowanie nieudanego zdarzenia
             with open("logs.txt", "a") as file:

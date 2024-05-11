@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../static/css/menu.css" />
     <link rel="stylesheet" href="../static/css/admin.css" />
   </head>
+  <!-- <script src="../static/js/admin.js"></script> -->
   <body>
     <div class="contener">
       <h1>PyGenius</h1>
@@ -21,35 +22,51 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
-    <!-- wysyłaie posta do pythona -->
     <script>
-        document.getElementById("login").addEventListener("click", function () {
-          var username = document.getElementById("username").value;
-          var password = document.getElementById("password").value;
-          var hashedPassword = md5(password);
-    
-          var formData = new FormData();
-          formData.append("username", username);
-          formData.append("password", hashedPassword);
-    
-          fetch("/login_data", {
-            method: "POST",
-            body: formData
-          })
-          .then(response => {
+      var clikc1 = document.getElementById("password");
+      clikc1.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          document.getElementById("login").click();
+        }
+      });
+
+      var clikc2 = document.getElementById("username");
+      clikc2.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          document.getElementById("login").click();
+        }
+      });
+
+      document.getElementById("login").addEventListener("click", function () {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var hashedPassword = md5(password);
+
+        var formData = new FormData();
+        formData.append("username", username);
+        formData.append("password", hashedPassword);
+
+        fetch("/login_data", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
             if (response.ok) {
               return response.text();
             }
             throw new Error("Network response was not ok");
           })
-          .then(data => {
-            // Tutaj możesz wykorzystać otrzymane dane
-            if (data != 'Tak'){
-                alert("Niepoprawne hasło lub login");
+          .then((data) => {
+            if (data != "Tak") {
+              alert("Niepoprawne hasło lub login");
+            } else {
+              window.location.href = "./admin_panel";
             }
           })
-          .catch(error => console.error("Błąd:", error));
-        });
-      </script>
+          .catch((error) => console.error("Błąd:", error));
+      });
+    </script>
   </body>
 </html>
