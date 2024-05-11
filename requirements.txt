@@ -1,3 +1,4 @@
 Flask
+hashlib
 psycopg2
 Gunicorn
