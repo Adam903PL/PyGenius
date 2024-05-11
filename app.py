@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import *
 import hashlib
-
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'Jakub Mazurek'
@@ -14,37 +14,32 @@ def login():
     return render_template('admin.html')
 
 
-
 @app.route('/login_data', methods=['POST'])
 def login_data():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
+
         word = "admin"
 
         hash_md5 = hashlib.md5()
-
         hash_md5.update(word.encode())
-
         hashed_word = hash_md5.hexdigest()
 
         if username == 'admin' and password == hashed_word:
             session['logged_in'] = True
+
             with open("logs.txt", "a") as file:
                 file.write(f"Zalogowano Username: {username}, Password: {password}\n")
-            return redirect(url_for('admin_panel')) 
-            
+
+            return f'Tak'
         else:
+            # Logowanie nieudanego zdarzenia
             with open("logs.txt", "a") as file:
                 file.write(f"Blad w logowaniu \n")
-                
 
+            return redirect(url_for('index'))
 
-
-
-
-        return f'Login attempt with username: {username} and password: {hashed_word}'
 
 @app.route('/admin_panel')
 def admin_panel():
