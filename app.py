@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib
 
+
 app = Flask(__name__)
+app.secret_key = 'Jakub Mazurek'
 
 @app.route('/')
 def index():
@@ -13,17 +15,50 @@ def login():
 
 
 
-@app.route('/login_data',methods=['POST'])
+@app.route('/login_data', methods=['POST'])
 def login_data():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
         
-        with open("logs.txt", "a") as file:
-            file.write(f"Username: {username}, Password: {password}\n")
+        word = "admin"
 
-        
-        return f'Login attempt with username: {username} and password: {password}'
+        hash_md5 = hashlib.md5()
+
+        hash_md5.update(word.encode())
+
+        hashed_word = hash_md5.hexdigest()
+
+        if username == 'admin' and password == hashed_word:
+            session['logged_in'] = True
+            with open("logs.txt", "a") as file:
+                file.write(f"Zalogowano Username: {username}, Password: {password}\n")
+            return redirect(url_for('admin_panel')) 
+            
+        else:
+            with open("logs.txt", "a") as file:
+                file.write(f"Blad w logowaniu \n")
+                
+
+
+
+
+
+        return f'Login attempt with username: {username} and password: {hashed_word}'
+
+@app.route('/admin_panel')
+def admin_panel():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template('admin_panel.html')  
+    else:
+        return redirect(url_for('login'))  
+
+
+@app.route('/logout')
+def logout():
+    session.clear()  
+    return redirect(url_for('login'))  
+
 
 if __name__ == '__main__':
     app.run(debug=True)
