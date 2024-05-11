@@ -1,0 +1,109 @@
+body{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(90,90,163,1) 47%, rgba(0,212,255,1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    padding: 0%;
+    top: 0%;
+    /* z-index: 1; */
+}
+
+.contener{
+    /* border: 5px solid; */
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 45%;
+    background-color: rgba(225, 225, 225, 0.5) ;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+}
+
+.contener div{
+    width: 100%;
+    height: 40%;
+    padding: 0%;
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20%;
+    gap: 1%;
+
+    
+}
+
+.contener h1{
+    margin: 0px;
+    padding: 0px;
+    color: rgba(225, 225, 225, 0.95);    
+}
+.contener div input{
+    /* align-self: center; */
+}
+
+.contener div  p{
+    margin: 0px;
+}
+
+.contener input{
+    background-color: rgba(225, 225, 225, 0.3) ;
+    box-shadow: 0 0 20px rgba(40, 208, 255, 0.3);
+    width: 80%;
+    height: 25%;
+    border-radius:10px ;
+    padding-left: 1%;
+    /* border: 1em solid grey; */
+    font-size: 100%;
+    margin: 0%;
+
+}
+#login {
+    align-self: center;
+    border-radius: 40px;
+    width: 60%;
+    border: 0px;
+    margin-top: 5%;
+    height: 10%;
+    background: rgb(0,195,255);
+    background: linear-gradient(90deg, rgba(0,195,255,0.6) 0%, rgba(69, 122, 255,0.6) 100%);
+    background-size: 200% auto; /* Rozszerz tło na dwukrotność szerokości elementu */
+    background-position: 100% 50%; /* Początkowe położenie tła (prawy bok) */
+    transition: background-position 0.3s; /* Animacja zmiany położenia tła */
+    box-shadow: 0 0 20px rgba(40, 208, 255, 0.3);
+    cursor: pointer ;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 140%;
+    color: rgba(225, 225, 225, 0.95);    
+}
+
+#login:hover {
+    background-position: 0 50%; /* Przesuń tło w lewo na początek elementu */
+}
+
+
+#login:active{
+    transform: scale(1.1);
+}
+
+
+
+
+
+
+
+
