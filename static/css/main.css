@@ -85,3 +85,28 @@ body{
 .get_start .small {
     margin: 0; 
 }
+
+
+
+.get_start div button{
+    font-size: 2rem;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    width: 150px;
+    height: 8vh;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(90,90,163,1) 47%, rgba(0,212,255,1) 100%);
+    border: 0px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(20, 20, 20, 0.75);
+    cursor: pointer;
+    background-size: 120% auto; 
+    background-position: 100% 50%; 
+    transition: background-position 0.3s; 
+}
+
+
+
+.get_start div button:hover {
+    background-position: 0 50%; 
+}
