@@ -31,7 +31,7 @@ nav {
 nav ul  {
     display: flex;
     flex-direction: row;
-    gap: 45%;
+    gap: 40%;
 }
 
 nav ul li {
@@ -42,7 +42,6 @@ nav ul li a {
     color: #fff;
     text-decoration: none; 
 }
-
 
 
 
