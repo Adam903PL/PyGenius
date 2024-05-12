@@ -225,6 +225,15 @@ body{
         justify-content: center;
 
     }
+    
+.python_img2 {
+    width: 420px;
+    height: 300px;
+    background-image: url('/static/pictures/pc.png');
+    background-size: cover;
+    background-position: center;
+    border: none;
+}
 
 }
 
@@ -244,7 +253,7 @@ body{
 
 .python_img2 {
     width: 450px;
-    height: 360px;
+    height: 300px;
     background-image: url('/static/pictures/pc.png');
     background-size: cover;
     background-position: center;
