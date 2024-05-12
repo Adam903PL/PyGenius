@@ -1,6 +1,6 @@
 from flask import *
 import hashlib
-
+import os
 
 app = Flask(__name__)
 app.secret_key = 'Jakub Mazurek'
@@ -16,6 +16,16 @@ def login():
 @app.route('/login')
 def login_user():
     return render_template('login.html')
+
+@app.route('/templates')
+def templates():
+    folder_path = 'PyGenius/static'
+    files = os.listdir(folder_path)
+    with open("logs.txt", "a") as file:
+        file.write(f"{files},msmsms\n")
+    return render_template('template.html', files=files)
+
+
 
 @app.route('/login_data', methods=['POST'])
 def login_data():
