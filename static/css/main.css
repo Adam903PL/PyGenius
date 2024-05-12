@@ -10,9 +10,78 @@ body{
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 80vh;
+    height: 45vh;
     overflow: auto; 
     position: relative; 
-    
+    min-width: 300px;
+
+   }
+
+.black_bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+
+
+}
+.get_start {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* height: 100%; */
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
 }
 
+
+.get_start div {
+    font-family: "Orbitron", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* width: 100%;  */
+    /* height: 100%;        */
+    letter-spacing: 1px;
+    color: white;
+    /* position: absolute;  */
+    /* top: 0; */
+    /* left: 0;   */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+
+
+}
+.get_start h1{
+    font-size: 3.5em;
+    line-height: 1.2;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.90);
+    letter-spacing: 4px;
+
+
+}
+
+.small{
+    font-size: 2rem;
+    color: white;
+    line-height: 1.2em;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(20, 20, 20, 0.75);
+}
+
+.get_start h1, 
+.get_start .small {
+    margin: 0; 
+}
