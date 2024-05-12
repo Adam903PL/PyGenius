@@ -5,6 +5,7 @@ body{
     padding: 0px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(110, 0, 213, 0.65) 0%, rgba(77, 77, 204, 0.65) 47%, rgba(0,212,255,0.65) 100%);
+    overflow: auto;
 
 }
 .background {
@@ -161,8 +162,9 @@ body{
     /* background-color: red; */
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     margin-bottom: 2%;
+    
 
 }
 
@@ -174,42 +176,48 @@ body{
     display: flex;
     flex-direction: row;
     gap: 5%;
+    /* overflow: hidden;     */
+    
+
 
 }
 
 
 
 
-.text{
+.text {
+    
     width: 40%;
     font-size: 130%;
     margin-left: 10%;
-    white-space: nowrap;
-}   
+
+}
+
 
 
 @media (max-width: 1200px) {
     .text_cont {
         width: 80%;
-        height: 100%;
+        height: 10%;
         /* background-color: blue; */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        text-align: left;
         gap: 5%;
     }
+
+
     .text{
         /* color: wheat; */
-        width: 40%;
+        width: 100%;
+        
         font-size: 100%;
+        /* overflow: hidden; */
         margin-left: 0%;
         align-self: self-start;
     }   
-}
-
-
-@media (max-width: 1200px) {
     #tC_2 {
         display: flex;
         flex-direction: column-reverse;
@@ -217,15 +225,11 @@ body{
         justify-content: center;
 
     }
-    .text{
-        /* color: wheat; */
-        width: 40%;
-        font-size: 100%;
-        margin-left: 0%;
-        align-self: self-start;
-    }   
-    
+
 }
+
+
+
 
 
 .python_img {
