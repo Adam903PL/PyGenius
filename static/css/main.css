@@ -239,10 +239,10 @@ body{
 
 
 .python_img2 {
-    width: 550px;
+    width: 450px;
     height: 360px;
     background-image: url('/static/pictures/pc.png');
-    background-size: 100%;
+    background-size: cover;
     background-position: center;
     border: none;
 }
