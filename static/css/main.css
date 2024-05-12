@@ -14,6 +14,8 @@ body{
     overflow: auto; 
     position: relative; 
     min-width: 300px;
+    margin: 0px;
+    padding: 0px;
 
    }
 
@@ -144,7 +146,7 @@ body{
     width: 100%;
     max-width: 1220px;
     margin: 0 auto;
-    padding: 0 20px;
+
     display: flex;
     flex-direction: column;
     
