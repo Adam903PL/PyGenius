@@ -228,22 +228,6 @@ body{
 
 }
 
-@media  (max-width: 450px) {
-    .python_img2 {
-        width: 355px;
-        height: 300px;
-        background-image: url('/static/pictures/pc.png');
-        background-size: cover;
-        background-position: center;
-        border: none;
-    }
-    
-    
-}
-
-
-
-
 .python_img {
     width: 400px;
     height: 360px;
@@ -253,12 +237,17 @@ body{
     border: none;
 }
 
-
 .python_img2 {
-    width: 355px;
-    height: 300px;
-    background-image: url('/static/pictures/pc.png');
-    background-size: cover;
-    background-position: center;
-    border: none;
+    width: 70%; /* Możesz dostosować tę wartość według potrzeb */
+    height: 88%; /* Możesz dostosować tę wartość według potrzeb */
+    overflow: hidden; /* Zapobiega wyświetlaniu elementów, które wychodzą poza granice diva */
+    border: none; /* Usunięcie ramki wokół diva */
+    position: relative; /* Ustawienie pozycji na "relative" */
 }
+
+.python_img2 img {
+    width: 100%; /* Obrazek wypełni całą szerokość diva */
+    height: 100%; 
+    object-fit: cover;
+}
+
