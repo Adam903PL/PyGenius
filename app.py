@@ -17,6 +17,10 @@ def login():
 def login_user():
     return render_template('login.html')
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
 @app.route('/templates')
 def templates():
     folder_path = 'PyGenius/static'
