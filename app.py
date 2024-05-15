@@ -1,9 +1,36 @@
 from flask import *
 import hashlib
 import os
+import pyodbc
 
 app = Flask(__name__)
 app.secret_key = 'Jakub Mazurek'
+external_database_url = 'postgres://pygenius_security_db_user:2nUg1JYDa5Fgjw0lhOFfNt7ROpKkPSgO@dpg-cp1t92821fec738hjbk0-a.oregon-postgres.render.com/pygenius_security_db'
+
+
+def login():
+    try:
+        conn = pyodbc.connect(external_database_url)
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT FirstName FROM users")
+
+        for row in cursor.fetchall():
+            print(row.FirstName)
+
+        cursor.close()
+        conn.close()
+        
+    except pyodbc.Error as ex:
+        print(f'Błąd połączenia z bazą danych: {ex} ')
+        return None
+
+
+login()
+
+
+
+
 
 @app.route('/')
 def index():
@@ -13,13 +40,11 @@ def index():
 def login():
     return render_template('admin.html')
 
-@app.route('/login')
-def login_user():
-    return render_template('login.html')
 
-@app.route('/register')
+
+@app.route('/login')
 def register():
-    return render_template('register.html')
+    return render_template('login.html')
 
 @app.route('/templates')
 def templates():
@@ -28,6 +53,7 @@ def templates():
     with open("logs.txt", "a") as file:
         file.write(f"{files},msmsms\n")
     return render_template('template.html', files=files)
+
 
 
 
@@ -52,7 +78,6 @@ def login_data():
             redirect(url_for('admin_panel'))
             return f'Tak' 
         else:
-            # Logowanie nieudanego zdarzenia
             with open("logs.txt", "a") as file:
                 file.write(f"Blad w logowaniu \n")
 
