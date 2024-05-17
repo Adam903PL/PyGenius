@@ -1,38 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/css/register.css" />
-  </head>
-  <body>
-    <div class="element">
-      <div class="login_elements">
-        <div class="pics-container">
-          <img src="../static/pictures/profilepic.png" />
-          <h4>LOGIN</h4>
-          <div class="login">
-            <label>Email</label>
-            <input type="text" placeholder="Email" class="passy"/>
-            <label>Password</label>
-            <input type="password" placeholder="Password" class="passy"/>
-            <button>Submit</button> 
-          </div>
-        </div>
-      </div>
-      <div class="login_png">
-        <img src="../static/pictures/register.png" />
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document</title>
+<link rel="stylesheet" href="../static/css/register.css" />
+</head>
+<body>
+<div class="element">
+  <div class="login_elements">
+    <div class="pics-container">
+      <img src="../static/pictures/profilepic.png" />
+      <h4>LOGIN</h4>
+      <div class="login">
+        <label>Email</label>
+        <input type="text" placeholder="Email" class="passy" id="email"/>
+        <label>Password</label>
+        <input type="password" placeholder="Password" class="passy" id="password"/>
+        <button id="login_user">Login</button>
       </div>
     </div>
+  </div>
+  <div class="login_png">
+    <img src="../static/pictures/register.png" />
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
+<script>
+window.addEventListener("resize", function () {
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  console.log("Aktualna szerokość okna:", width, "px");
+  console.log("Aktualna wysokość okna:", height, "px");
+});
 
-    <script>
-      window.addEventListener("resize", function () {
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        console.log("Aktualna szerokość okna:", width, "px");
-        console.log("Aktualna wysokość okna:", height, "px");
-      });
-    </script>
-  </body>
+document.getElementById("login_user").addEventListener("click", function () {
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+  var hashedPassword = md5(password);
+  var formData = new FormData();
+  formData.append("email", email);
+  formData.append("password", hashedPassword);
+
+
+  fetch("/login_user", {
+    method: "POST",
+    body: formData,
+  })
+  .then((response) => {
+    if (response.ok) {
+      return response.text();
+    }
+    throw new Error("Network response was not ok");
+  })
+  .then((data) => {
+    if (data != "Tak"){
+        alert("Niepoprawne hasło lub login");
+
+        } else {
+              window.location.href = "/login/tasks";
+        }
+        })
+          .catch((error) => console.error("Błąd:", error));
+});
+</script>
+</body>
 </html>

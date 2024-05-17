@@ -5,13 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/menu.css">
+
     <title>Document</title>
 </head>
 <body>
-    <img class="background"></img> 
+    <div class="background">
+        <header>
+            <div class="menu">
+              <nav>
+                <div class="menu_objects">
+                  <div class="logo">
+                    <img src="../static/pictures/Zasób 1.svg" alt="Logo" />
+                  </div>
+                  <div class="center">
+                    <div class="menu-item">
+                      <a href="#">Item 1</a>
+                    </div>
+                    <div class="menu-item">
+                      <a href="#">Item 2</a>
+                    </div>
+                    <div class="menu-item">
+                      <a href="#">Item 3</a>
+                    </div>
+                  </div>
+                  <div class="start">
+                    <button class="inner">
+                      <a>LogIn</a>
+                    </button>
+                    <button class="get_start">
+                      <a>GetStarted</a>
+                    </button>
+                    <button class="menu_show" id="menu_slider">
+                          <img src="../static/pictures/Zasób 3.svg">
+                    </button>
 
-    <div class="black_bg">
-        <div class="get_start">
+
+                  </div>
+
+                </div>
+
+      
+              </nav>
+
+            </div>
+            <div class="container">
+                <div class="text_main">
+                    <p><b>
+                        The Best platform
+                        to learn Python</b>
+                    </p>
+                    <p>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis, consectetur expedita totam aut deserunt inventore. Neque eligendi voluptatum omnis modi laudantium in eos blanditiis 
+                    </p>
+                    <div>
+                        <img src="../static/pictures/pic.png">
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <div class="slider_div">
+              <div class="linie"></div>
+              <div class="obj"><a href="#">Item 1</a></div>
+              <div class="obj"><a href="#">Item 2</a></div>
+              <div class="obj"><a href="#">Item 3</a></div>
+              <div class="buttons">
+                  <button class="get_start2">Get Start</button>
+                  <button class="log_in2">Log In</button>
+              </div>
+            </div>
+          </header>
+    </div> 
+
+    <!-- <div class="black_bg">
+        <div class="get_started">
             <div>
                 <h1>Py Genius</h1>
                 <div class="small">Interactive Learning to Program</div>
@@ -22,9 +89,9 @@
             </div>
     
         </div>
-    </div>
+    </div> -->
 
-    <div class="main_contener">
+    <!-- <div class="main_contener">
         <div class="first_cont">
             <div class="text_cont">
                 <div class="text">
@@ -68,20 +135,45 @@
 
         <div class="">
 
-        </div>
-</div>
+        </div> 
+</div> -->
 
 
 
 
     <script>
 // alert("Strona jest stworzona jako projekt na lekcje Programowanai Stron Internetowych prosze mnie nie pozwyać thx")
-window.addEventListener('resize', function() {
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    console.log('Aktualna szerokość okna:', width, 'px');
-    console.log('Aktualna wysokość okna:', height, 'px');
-});
+window.addEventListener("resize", function () {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        console.log("Aktualna szerokość okna:", width, "px");
+        console.log("Aktualna wysokość okna:", height, "px");
+        if (width> 883 ){
+            element.classList.toggle("hidden");
+        }
+        
+
+        if (width< 883 ){
+            document.querySelector(".slider_div").style.height='200px';
+        }
+        
+      });
+
+
+      document.getElementById("menu_slider").addEventListener("click", function () {
+            var element = document.querySelector(".slider_div");
+            element.classList.toggle("show");
+
+            var element = document.querySelector(".menu");
+            if (element.style.borderRadius === "15px 15px 0px 0px") {
+                element.style.borderRadius = "15px";
+            } else{
+                element.style.borderRadius = "15px 15px 0px 0px";
+            }
+        
+        
+        });
+
 
     </script>
 

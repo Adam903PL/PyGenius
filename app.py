@@ -1,33 +1,22 @@
-from flask import *
+
 import hashlib
 import os
-import pyodbc
+from flask import Flask, render_template, request, redirect, url_for, jsonify,session
+import psycopg2
 
 app = Flask(__name__)
 app.secret_key = 'Jakub Mazurek'
 external_database_url = 'postgres://pygenius_security_db_user:2nUg1JYDa5Fgjw0lhOFfNt7ROpKkPSgO@dpg-cp1t92821fec738hjbk0-a.oregon-postgres.render.com/pygenius_security_db'
 
 
-def login():
-    try:
-        conn = pyodbc.connect(external_database_url)
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT FirstName FROM users")
-
-        for row in cursor.fetchall():
-            print(row.FirstName)
-
-        cursor.close()
-        conn.close()
-        
-    except pyodbc.Error as ex:
-        print(f'Błąd połączenia z bazą danych: {ex} ')
-        return None
 
 
-login()
 
+
+@app.route('/logout_user')
+def logout_user():
+    session.clear()
+    return redirect(url_for('login'))
 
 
 
@@ -36,15 +25,21 @@ login()
 def index():
     return render_template('index.html')
 
-@app.route('/admin')
-def login():
-    return render_template('admin.html')
 
 
-
+@app.route('/help')
+def help():
+    return render_template('help.html')
+    
 @app.route('/login')
-def register():
+def login():
     return render_template('login.html')
+
+
+
+@app.route('/admin')
+def register():
+    return render_template('admin.html')
 
 @app.route('/templates')
 def templates():
@@ -96,6 +91,73 @@ def admin_panel():
 def logout():
     session.clear()  
     return redirect(url_for('login'))  
+
+
+
+
+
+
+@app.route('/login/tasks')
+def tasks():
+    for key, value in session.items():
+        if value is True:
+            return render_template('tasks.html')
+    return redirect(url_for('login'))
+@app.route('/login_user', methods=['POST'])
+def login_user():
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    try:
+        connection = psycopg2.connect(external_database_url)
+        cursor = connection.cursor()
+
+        query = """
+        SELECT  U.FirstName
+        FROM LoginCredits AS LC
+        JOIN Users AS U ON LC.UserId = U.UserId WHERE LC.Email = %s AND LC.Passwords = %s """
+        cursor.execute(query, (email, password))
+
+        row = cursor.fetchone()
+
+        if row:
+            with open("logs.txt", "a") as file:
+                file.write(f"AAA ZALOGOWANO plik PyGenius \n")
+
+            first_name = row[0]
+
+            session[f'logged_in_{first_name}'] = True
+            if session[f'logged_in_{first_name}'] == True:
+                with open("logs.txt","a") as file:
+                    file.write('Sesja działą byqu \n')
+
+
+            return f'Tak'
+
+        else:
+            with open("logs.txt", "a") as file:
+                file.write(f"Login failed: Username: {email}, Password: {password}\n")
+            return "Login failed: Incorrect email or password"
+
+    except psycopg2.Error as ex:
+        print(f'Błąd połączenia z bazą danych: {ex}')
+        return "Database connection error"
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
