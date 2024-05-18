@@ -3,9 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/static/css/tasks.css">
+
+
 </head>
 <body>
-    <p>zalogowano</p>
-    <a href="/logout_user">Wyloguj</a>
+    <div class="left_div">
+        <div class="logo">
+            <img src="../static/pictures/Zasób 1.svg" alt="Logo" />
+          </div>
+    </div>
+    <div class="main_objects">
+        <div class="schearch_div"></div>
+        <div class="slider_div"></div>
+    </div>
+       
+        
+<script>
+// alert("Strona jest stworzona jako projekt na lekcje Programowanai Stron Internetowych prosze mnie nie pozwyać thx")
+window.addEventListener("resize", function () {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        console.log("Aktualna szerokość okna:", width, "px");
+        console.log("Aktualna wysokość okna:", height, "px");
+        if (width> 883 ){
+            element.classList.toggle("hidden");
+        }
+        
+
+        if (width< 883 ){
+            document.querySelector(".slider_div").style.height='200px';
+        }
+        
+      });
+
+
+      document.getElementById("menu_slider").addEventListener("click", function () {
+            var element = document.querySelector(".slider_div");
+            element.classList.toggle("show");
+
+            var element = document.querySelector(".menu");
+            if (element.style.borderRadius === "15px 15px 0px 0px") {
+                element.style.borderRadius = "15px";
+            } else{
+                element.style.borderRadius = "15px 15px 0px 0px";
+            }
+        
+        
+        });
+
+
+    </script>
 </body>
 </html>

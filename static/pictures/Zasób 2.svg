@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Warstwa_2" data-name="Warstwa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.1 8.8">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: SegoeUIVariable-BoldSmall, 'Segoe UI Variable';
+        font-size: 6px;
+        font-variation-settings: 'wght' 700, 'opsz' 8;
+        font-weight: 700;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #11182a;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Warstwa_1-2" data-name="Warstwa 1">
+    <g>
+      <circle class="cls-3" cx="4.4" cy="4.4" r="4.4"/>
+      <text class="cls-1" transform="translate(1.4 6.2)"><tspan class="cls-4" x="0" y="0">Py</tspan><tspan class="cls-2" x="7" y="0">Genius</tspan></text>
+    </g>
+  </g>
+</svg>
