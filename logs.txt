@@ -1,30 +1,39 @@
-AAA ZALOGOWANO plik PyGenius
-Sesja dzia³¹ byqu 
-AAA ZALOGOWANO plik PyGenius
-Sesja dzia³¹ byqu 
-AAA ZALOGOWANO plik PyGenius
-Sesja dzia³¹ byqu 
-Zalogowano Username: admin, Password: 21232f297a57a5a743894a0e4a801fc3
-AAA ZALOGOWANO plik PyGenius
-Sesja dzia³¹ byqu 
+
+
+Dane: {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}
+Dane: {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}
+Dane: {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}
+Dane: {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}
+Dane: {'TaskName': 1, 'HardLevel': 5, 'Points': 30, 'InputData': 'ABCBDAB, BDCAB', 'OutputData': 'BCAB', 'Description': 'Napisz program, który znajduje najd³u¿szy wspólny podci¹g (LCS) w dwóch podanych ci¹gach znaków.'}
+Dane: {'TaskName': 1, 'HardLevel': 5, 'Points': 30, 'InputData': 'ABCBDAB, BDCAB', 'OutputData': 'BCAB', 'Description': 'Napisz program, który znajduje najd³u¿szy wspólny podci¹g (LCS) w dwóch podanych ci¹gach znaków.'}
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
-AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
-AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 
 Zalogowano Username: admin, Password: 21232f297a57a5a743894a0e4a801fc3
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
 Zalogowano Username: admin, Password: 21232f297a57a5a743894a0e4a801fc3
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
+AAA ZALOGOWANO plik PyGenius 
+Sesja dziala byqu 
 Zalogowano Username: admin, Password: 21232f297a57a5a743894a0e4a801fc3
 AAA ZALOGOWANO plik PyGenius 
-Sesja dzia³¹ byqu 
+Sesja dziala byqu 

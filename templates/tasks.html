@@ -1,58 +1,215 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/static/css/tasks.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../static/css/tasks.css">
+    <link rel="stylesheet" href="../static/css/menu.css">
+    <link rel="stylesheet" href="../static/css/loading.css">
+<style>
 
-
+</style>
 </head>
 <body>
-    <div class="left_div">
-        <div class="logo">
-            <img src="../static/pictures/Zasób 1.svg" alt="Logo" />
+<div class="loadingstart" >
+  <main >
+    <svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#5ebd3e" />
+          <stop offset="33%" stop-color="#ffb900" />
+          <stop offset="67%" stop-color="#f78200" />
+          <stop offset="100%" stop-color="#e23838" />
+        </linearGradient>
+        <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+          <stop offset="0%" stop-color="#e23838" />
+          <stop offset="33%" stop-color="#973999" />
+          <stop offset="67%" stop-color="#009cdf" />
+          <stop offset="100%" stop-color="#5ebd3e" />
+        </linearGradient>
+      </defs>`
+      <g fill="none" stroke-linecap="round" stroke-width="16">
+        <g class="ip__track" stroke="#ddd">
+          <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+          <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+        </g>
+        <g stroke-dasharray="180 656">
+          <path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+          <path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+        </g>
+      </g>
+    </svg>
+  </main>
+</div>
+
+  <div class="cointainers_task" id="topOfPage">
+
+
+
+
+
+  </div>  
+    <header class="header">
+        <div class="menu" style="border: 1px solid #2e3b4f;">
+          <nav>
+            <div class="menu_objects">
+                <div class="logo">
+                    <img src="../static/pictures/Zasób 1.svg" alt="Logo" />
+                </div>
+              <div class="center">
+                <div class="menu-item">
+                  <a href="#">Item 1</a>
+                </div>
+                <div class="menu-item">
+                  <a href="#">Item 2</a>
+                </div>
+                <div class="menu-item">
+                  <a href="#">Item 3</a>
+                </div>
+              </div>
+              <div class="start">
+                <button class="get_start" id="get_startID">
+                  <a href="/logout">LogOut</a>
+                </button>
+                <button class="menu_show" id="menu_slider">
+                      <img src="../static/pictures/Zasób 3.svg">
+                </button>
+
+
+              </div>
+
+            </div>
+
+  
+          </nav>
+
+        </div>
+        <div class="slider_div" style="border: 1px solid #2e3b4f;">
+            <div class="linie"></div>
+            <div class="obj"><a href="#">Item 1</a></div>
+            <div class="obj"><a href="#">Item 2</a></div>
+            <div class="obj"><a href="#">Item 3</a></div>
+            <div class="buttons">
+                <button class="get_start2">Get Start</button>
+                <button class="log_in2">Log In</button>
+            </div>
           </div>
     </div>
-    <div class="main_objects">
-        <div class="schearch_div"></div>
-        <div class="slider_div"></div>
-    </div>
-       
-        
+
+      </header>
+
+
+
+      <div class="task_sett">
+          
+      </div>
+      <div class="level1">
+      </div>
+
+      <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.overflow = 'hidden';
+    fetch('/getTasks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parsowanie odpowiedzi JSON
+    })
+    .then(data => {
+        if (data && data.tasks) {
+            const level1Div = document.querySelector('.level1'); // Znajdź div level1
+            data.tasks.forEach(task => {
+                if (task.HardLevel === 1) {
+                    
+                    const taskDiv = document.createElement('div');
+                    taskDiv.classList.add('task'); 
+                    taskDiv.innerHTML = `
+                        <h3>${task.TaskName}</h3>
+                        <p>Level: ${task.HardLevel}</p>
+                        <p>Points: ${task.Points}</p>
+                        <p>Input Data: ${task.InputData}</p>
+                        <p>Output Data: ${task.OutputData}</p>
+                        <p>Description: ${task.Description}</p>
+                        <button class='startButton' data-task-id="${task.TaskId}">Start</button>
+                    `;
+                    level1Div.appendChild(taskDiv);
+                }
+            });
+
+            document.body.style.overflow = 'auto';
+            document.querySelector(".loadingstart").style.display = "none";
+            
+            level1Div.addEventListener('click', function(event) {
+                if (event.target.classList.contains('startButton')) {
+                    document.getElementById("topOfPage").scrollIntoView({ behavior: "smooth" });
+
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                    var body = document.querySelector("body");
+                    body.style.overflow = "hidden";
+
+                    var cointainersTask = document.querySelector(".cointainers_task");
+                    cointainersTask.classList.toggle("show");
+
+                    const taskId = event.target.getAttribute('data-task-id');
+                    console.log(taskId);
+                    if (taskId) {
+                      console.log('test');
+                      fetch('/login/tasks', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify({ taskinfo: taskId })
+                      })
+                      .then(response => {
+                          console.log('Response status:', response.status); 
+                          if (!response.ok) {
+                              console.error('Network response was not ok');
+                              throw new Error('Network response was not ok');
+                          }
+                          console.log('test 2.5'); 
+                          return response.json();
+                      })
+                      .then(responseData => {
+                          console.log('test 3');
+                          console.log('Response:', responseData);
+                      })
+                      .catch(error => {
+                          console.error('Error:', error);
+                      });
+
+
+                    } else {
+                        console.error('No taskId found');
+                    }
+                }
+            });
+
+        } else {
+            console.error('No tasks data received');
+        }
+    })
+    .catch(error => console.error('Error fetching tasks:', error));
+});
+
+
+</script>
+
 <script>
-// alert("Strona jest stworzona jako projekt na lekcje Programowanai Stron Internetowych prosze mnie nie pozwyać thx")
-window.addEventListener("resize", function () {
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        console.log("Aktualna szerokość okna:", width, "px");
-        console.log("Aktualna wysokość okna:", height, "px");
-        if (width> 883 ){
-            element.classList.toggle("hidden");
-        }
-        
-
-        if (width< 883 ){
-            document.querySelector(".slider_div").style.height='200px';
-        }
-        
-      });
-
-
-      document.getElementById("menu_slider").addEventListener("click", function () {
-            var element = document.querySelector(".slider_div");
-            element.classList.toggle("show");
-
-            var element = document.querySelector(".menu");
-            if (element.style.borderRadius === "15px 15px 0px 0px") {
-                element.style.borderRadius = "15px";
-            } else{
-                element.style.borderRadius = "15px 15px 0px 0px";
-            }
-        
-        
-        });
-
-
-    </script>
+  document.addEventListener('keydown', function(event) {
+      if (event.key === 'Tab') {
+          event.preventDefault(); 
+      }
+  });
+</script>
 </body>
 </html>

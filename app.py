@@ -1,4 +1,3 @@
-
 import hashlib
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify,session
@@ -7,8 +6,6 @@ import psycopg2
 app = Flask(__name__)
 app.secret_key = 'Jakub Mazurek'
 external_database_url = 'postgres://pygenius_security_db_user:2nUg1JYDa5Fgjw0lhOFfNt7ROpKkPSgO@dpg-cp1t92821fec738hjbk0-a.oregon-postgres.render.com/pygenius_security_db'
-
-
 
 
 
@@ -23,6 +20,11 @@ def logout_user():
 
 @app.route('/')
 def index():
+    if 'logged_in' in session and session['logged_in']:
+             return redirect(url_for('admin_panel'))
+    elif session:
+        redirect(url_for('login'))
+        return redirect(url_for('tasks'))
     return render_template('index.html')
 
 
@@ -33,6 +35,8 @@ def help():
     
 @app.route('/login')
 def login():
+    if session:
+        return redirect(url_for('tasks'))
     return render_template('login.html')
 
 
@@ -97,6 +101,8 @@ def logout():
 
 
 
+
+
 @app.route('/login/tasks')
 def tasks():
     for key, value in session.items():
@@ -129,7 +135,7 @@ def login_user():
             session[f'logged_in_{first_name}'] = True
             if session[f'logged_in_{first_name}'] == True:
                 with open("logs.txt","a") as file:
-                    file.write('Sesja działą byqu \n')
+                    file.write('Sesja dziala byqu \n')
 
 
             return f'Tak'
@@ -149,15 +155,45 @@ def login_user():
 
 
 
+@app.route('/getTasks', methods=['POST'])
+def getTask():
+    try:
+        connection = psycopg2.connect(external_database_url)
+        cursor = connection.cursor()
 
+        query = """select TaskId,TaskName, HardLevel, Points, InputData, OutPutData, Description 
+                   from TasksHeader
+                   order by HardLevel asc"""
+        cursor.execute(query)
 
+        tasks_data = []  
+        for row in cursor.fetchall():
+            task_info = {
+                'TaskId': row[0],
+                'TaskName': row[1],
+                'HardLevel': row[2],
+                'Points': row[3],
+                'InputData': row[4],
+                'OutputData': row[5],
+                'Description': row[6]
+            }
+            tasks_data.append(task_info)  
 
+    except psycopg2.Error as ex:
+        print(f'Błąd połączenia z bazą danych: {ex}')
+        return jsonify({'error': 'Database connection error'})
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+        return jsonify({'tasks': tasks_data})  
 
-
-
-
-
-
+try:
+    dane = getTask()
+    with open("logs.txt", "a") as file:
+        file.write(f"Dane: {dane}\n")
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 
 if __name__ == '__main__':

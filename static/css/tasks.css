@@ -1,49 +1,128 @@
-body {
-    background-color: #172033;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
+    background-color: #172033;
 }
 
 
 
+.task_sett{
+    width: 70%;
+    height: 150px;
+    margin: 100px 15% 60px 15%;
+    border-radius: 20px;
+    background-color: #0f172a;
+    border: 1px solid #2e3b4f;
 
-
-
-.left_div{
-height: 100vh;
-width: 18vw;
-z-index: 1;
-display: flex;
-padding-left: 1.5rem !important;
-padding-right: 1.5rem !important;
-padding-top: 0.5rem !important;
 }
 
-.logo{
+.startButton{
+    width: 200px;
     height: 50px;
-    width: 50px;
-
-}
-.logo img{
-    align-self: center;
-    height: 50px;
-
-
-}
-
-.main_objects{
-    width: 82vw;
-    height: 100vh;  
-    background-color: greenyellow;
-
+    background-color: rgb(37, 244, 26);
+    border: 1px solid #2e3b4f;
+    border-radius: 20px;
+    color: white;
+    font-size: 1.6em;
+    transition: ease-in-out 4ms;
+    cursor: pointer;
 }
 
-.schearch_div{
-    background-color: blue;
+
+.startButton:active{
+    transform: scale(1.1);
+}
+
+
+
+
+.level1{
+    margin: 0px 15% 0px 15%;
+    width: 70%;
+}
+
+
+.task {
+    color: white;
+    background-color: #0f172a;
+    border: 1px solid #2e3b4f;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: Satoshi, sans-serif, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji ;
+
+
+}
+
+
+.task-container {
+    display: none; /* Ukryj wszystkie kontenery na początku */
+    z-index: 10;
     width: 100%;
-    height: 70px;
+    height: 100%;
+    background-color: white;
+    margin: 0px;
+    padding: 0px;
 }
+
+
+
+
+.cointainers_task{
+    display: none;
+    position: absolute; 
+    z-index: 99999;
+    width: 100%;
+    margin-top: 0px;
+    height: 100%;
+    background-color: #172033;
+}
+
+
+
+
+.cointainers_task.show{
+    display: flex !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
