@@ -5,6 +5,10 @@ html, body {
     background-color: #172033;
 }
 
+:root{
+    --color-div:#0f172a;
+    --color-border-div:#2e3b4f;
+}
 
 
 .task_sett{
@@ -64,6 +68,7 @@ html, body {
     background-color: white;
     margin: 0px;
     padding: 0px;
+    overflow: auto;
 }
 
 
@@ -71,6 +76,7 @@ html, body {
 
 .cointainers_task{
     display: none;
+    flex-direction: row;
     position: absolute; 
     z-index: 99999;
     width: 100%;
@@ -105,6 +111,82 @@ html, body {
 
 
 
+.task-details{
+    color: white;
+    margin: 10px;
+    font-family: Satoshi, sans-serif, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji ;
+    background-color: var(--color-div);
+    border: 1px solid var(--color-border-div);
+    border-radius: 20px;
+    height: 500px;
+    width: 30%;
+    padding: 20px ;
+    display:grid;
+    flex-direction: column;
+    gap: 0px;
+
+}
+
+
+.task-details h2,.task-details h3,.task-details p{
+    height:min-content;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.send_task_go_code{
+    justify-self: end;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    gap: 4%;
+}
+
+.send_task{
+    width: 30%;
+    height: 40px;
+    border-radius: 50px;
+    background-color: #00b7ee;
+    color: white;
+    border: 0px;
+    cursor: pointer;
+    transition: 1ms ease-in-out;
+}
+
+
+.send_task:hover{
+    background-color: white;
+    color:#00b7ee;
+    border: 1px solid #00b7ee;
+}
+
+
+
+.go_code{
+    width: 30%;
+    height: 40px;
+    border-radius: 50px;
+    background-color: #039855;
+    color: white;
+    border: 0px;
+    transition: 1ms ease-in-out;
+    cursor: pointer;
+}
+
+
+.go_code:hover{
+    
+    background-color: white;
+    color:#039855;
+    border: 1px solid #039855;
+}
+
+
+
+.send_task:active,.go_code:active{
+    transform: scale(1.1);
+}
 
 
 
@@ -114,15 +196,69 @@ html, body {
 
 
 
+.code_place{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
 
 
+.code {
+    width: 44%;
+    font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+    background-color: #2d2d2d;
+    color: #cccccc;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    font-size: 16px;
+    line-height: 1.5;
+    
 
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    overflow: auto;
+    tab-size: 4;
+    height: 90vh;
+    resize: none;
+    margin-right: 2%;
+}
+.code:focus {
+    outline: none;
+    border-color: #888;
+}
 
+.input_output{
+    width:42% ;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
+}
+.input_output h1{
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
+}
 
+.output {
+    width: 100%;
+    font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+    background-color: #1e1e1e;
+    color: #00ff00;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: auto;
+    resize: none;
+    height: 79%;
+}
 
-
-
-
-
+.output[readonly] {
+    background-color: #1e1e1e;
+}

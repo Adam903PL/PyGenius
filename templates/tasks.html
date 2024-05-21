@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="../static/css/tasks.css">
     <link rel="stylesheet" href="../static/css/menu.css">
     <link rel="stylesheet" href="../static/css/loading.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
 </style>
@@ -47,9 +49,79 @@
   <div class="cointainers_task" id="topOfPage">
 
 
+    <div class="code_place">
+      <textarea class="code" rows="20" cols="80" placeholder="Write your Python code here..." id="usercode"></textarea>
+      <div class="input_output">
+        <h1>Output:</h1>
+        <textarea class="output" rows="20" cols="80" readonly id="outpudata"></textarea>
+      </div>
+    </div>
+  <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const consoleLogs = [];
+    const originalConsoleLog = console.log;
+
+    // Nadpisz console.log, aby przechwytywać logi
+    console.log = function(...args) {
+        const logMessage = args.join(' ');
+        consoleLogs.push(logMessage);
+        originalConsoleLog.apply(console, args);
+        
+        // Sprawdź, czy log zaczyna się od "UserLog:"
+        if (logMessage.startsWith('UserLog:')) {
+            let formatedlog = logMessage.substring(9)
+            addOutput(formatedlog);
+        }
+    };
+
+    document.body.addEventListener('click', function(event) {
+
+        if (event.target && event.target.id === 'go_code') {
+            const jsCode = document.getElementById('usercode').value;
+            clearOutput(); 
+            executeJavaScript(jsCode);
+        }
+        if (event.target && event.target.id === 'send_task') {
+            
+          const jsCode = document.getElementById('usercode').value;
+            clearOutput(); 
+            executeJavaScript(jsCode);
+
+
+            alert("kod poszedł"+)
+
+        }
+    });
+
+    function executeJavaScript(jsCode) {
+        try {
+            // Dodaj prefix "UserLog:" do każdego console.log
+            const modifiedCode = jsCode.replace(/console\.log\(/g, 'console.log("UserLog:",');
+            eval(modifiedCode); // Wykonaj zmodyfikowany kod JavaScripta
+        } catch (error) {
+            console.error('Błąd podczas wykonywania kodu JavaScripta:', error);
+            addOutput('Błąd: ' + error); // Wyświetl błąd w textarea
+        }
+    }
+
+
+    function addOutput(output) {
+        const outputTextarea = document.getElementById('outpudata');
+        outputTextarea.value += output + '\n'; // Dodaj nową wartość do istniejącej zawartości
+    }
+
+    // Czyszczenie textarea przed każdym nowym wykonaniem kodu
+    function clearOutput() {
+        const outputTextarea = document.getElementById('outpudata');
+        outputTextarea.value = '';
+    }
+});
 
 
 
+  </script>
+    
   </div>  
     <header class="header">
         <div class="menu" style="border: 1px solid #2e3b4f;">
@@ -107,10 +179,28 @@
       </div>
       <div class="level1">
       </div>
+<script>
+//   const express = require('express');
+// const app = express();
 
+// app.use(express.json()); // Middleware do parsowania JSON
+
+// app.post('/login/tasks', (req, res) => {
+//     const taskInfo = req.body.taskinfo;
+//     console.log('Task info:', taskInfo);
+//     // Tutaj możesz dodać logikę obsługi żądania POST
+//     res.status(200).json({ message: 'Task received', taskinfo: taskInfo });
+// });
+
+// app.listen(3000, () => {
+//     console.log('Server is running on port 3000');
+// });
+
+</script>
       <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.body.style.overflow = 'hidden';
+
     fetch('/getTasks', {
         method: 'POST',
         headers: {
@@ -121,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json(); // Parsowanie odpowiedzi JSON
+        return response.json(); 
     })
     .then(data => {
         if (data && data.tasks) {
@@ -144,6 +234,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            class Task {
+                constructor(taskId, taskName, hardLevel, points, inputData, outputData, description) {
+                    this.taskId = taskId;
+                    this.taskName = taskName;
+                    this.hardLevel = hardLevel;
+                    this.points = points;
+                    this.inputData = inputData;
+                    this.outputData = outputData;
+                    this.description = description;
+                }
+            }
+
             document.body.style.overflow = 'auto';
             document.querySelector(".loadingstart").style.display = "none";
             
@@ -160,37 +262,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     cointainersTask.classList.toggle("show");
 
                     const taskId = event.target.getAttribute('data-task-id');
-                    console.log(taskId);
-                    if (taskId) {
-                      console.log('test');
-                      fetch('/login/tasks', {
-                          method: 'POST',
-                          headers: {
-                              'Content-Type': 'application/json'
-                          },
-                          body: JSON.stringify({ taskinfo: taskId })
-                      })
-                      .then(response => {
-                          console.log('Response status:', response.status); 
-                          if (!response.ok) {
-                              console.error('Network response was not ok');
-                              throw new Error('Network response was not ok');
-                          }
-                          console.log('test 2.5'); 
-                          return response.json();
-                      })
-                      .then(responseData => {
-                          console.log('test 3');
-                          console.log('Response:', responseData);
-                      })
-                      .catch(error => {
-                          console.error('Error:', error);
-                      });
+                    const selectedTask = data.tasks.find(task => task.TaskId == taskId);
+                    const taskInstance = new Task(
+                        selectedTask.TaskId,
+                        selectedTask.TaskName,
+                        selectedTask.HardLevel,
+                        selectedTask.Points,
+                        selectedTask.InputData,
+                        selectedTask.OutputData,
+                        selectedTask.Description
+                    );
 
-
-                    } else {
-                        console.error('No taskId found');
-                    }
+                    displayTaskData(taskInstance);
                 }
             });
 
@@ -201,7 +284,32 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error fetching tasks:', error));
 });
 
+function displayTaskData(task) {
+    const container = document.querySelector('.cointainers_task');
+    const taskDetailsDiv = document.createElement('div');
+    taskDetailsDiv.classList.add('task-details');
+  
+    taskDetailsDiv.innerHTML = `
+        <h2>${task.taskName}</h2>
+        <div style="display: flex; flex-direction: row; gap:5%;">
+        <p>Level: ${task.hardLevel}</p>
+        <p>Punkty: ${task.points}</p>  
+        </div>
+        <h3>Opis zadania</h3>
+        <p>${task.description}</p>
+        <h3>Przykładowe dane wejściowe</h3>
+        <p>Input Data: ${task.inputData}</p>
+        <h3>Przykładowe dane wyjściowe</h3>
+        <p>OutPut Data: ${task.outputData}</p>
+        <div class="send_task_go_code"> 
+          <button class="send_task" id="send_task">Wyślij odpowiedź</button>
+          <button class="go_code" id="go_code">Uruchom kod</button>
+        </div>
+    `;
+    container.appendChild(taskDetailsDiv);
+}
 
+ 
 </script>
 
 <script>
