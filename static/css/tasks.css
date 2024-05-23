@@ -270,16 +270,16 @@ html, body {
 
 
 
-.code_place{
+/* .code_place{
     width: 65%;
     height: 100%;
     display: flex;
     flex-direction: row;
-}
+} */
 
 
 .code {
-    width: 44%;
+    width: 40%;
     font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
     background-color: #2d2d2d;
     color: #cccccc;
@@ -304,8 +304,8 @@ html, body {
 }
 
 .input_output{
-    width:42% ;
-    height: 100%;
+    width:40%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
 
@@ -317,7 +317,7 @@ html, body {
 }
 
 .output {
-    width: 100%;
+    width: 90%;
     font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
     background-color: #1e1e1e;
     color: #00ff00;
@@ -330,9 +330,41 @@ html, body {
     word-wrap: break-word;
     overflow: auto;
     resize: none;
-    height: 79%;
+    height: 78vh;
 }
 
 .output[readonly] {
     background-color: #1e1e1e;
+}
+
+
+
+@media (max-width: 1013px) {
+    .cointainers_task{
+        height: 500%;
+
+        display: flex;
+
+    }    
+    .output{
+        height: 44%;
+    }
+}
+
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-top: 100px;
 }

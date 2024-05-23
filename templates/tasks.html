@@ -14,7 +14,54 @@
 
 </style>
 </head>
+
+
 <body>
+
+
+<canvas id="matrixCanvas"></canvas>
+<script>const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const letters = ['0', '1'];
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }, () => Math.floor(Math.random() * canvas.height / fontSize));
+    
+
+    const letterFrequency = 0.7; // tutaj
+    
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+        ctx.fillStyle = '#0F0';
+        ctx.font = `${fontSize}px Comic Sans`;
+    
+        for (let i = 0; i < drops.length; i++) {
+            if (Math.random() > letterFrequency) continue; 
+    
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+    
+            drops[i]++;
+        }
+    }
+    
+    setInterval(draw, 50);
+    
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+    
+</script>
 <div class="loadingstart" >
   <main >
     <svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
@@ -49,20 +96,20 @@
   <div class="cointainers_task" id="topOfPage">
 
 
-    <div class="code_place">
-      <textarea class="code" rows="20" cols="80" placeholder="Write your Python code here..." id="usercode"></textarea>
+    
+      <textarea class="code" rows="20" cols="80" placeholder="Write your JS code here..." id="usercode"></textarea>
       <div class="input_output">
         <h1>Output:</h1>
         <textarea class="output" rows="20" cols="80" readonly id="outpudata"></textarea>
       </div>
-    </div>
+    
 
 
    
  <script>
     function addOutput(output) {
         const outputTextarea = document.getElementById('outpudata');
-        outputTextarea.value += output + '\n'; // Dodaj nową wartość do istniejącej zawartości
+        outputTextarea.value += output + '\n'; 
     }
 
     function clearOutput() {
@@ -83,16 +130,10 @@ function checkifgood(jsCode) {
 
 
     alert(inputdata+" "+ outputdata)
-    // input data będzie po tej operacji 3 5  a ma być lista [3,5]
-    
 
-    // Zmienna przechowująca indeks aktualnie używanej wartości z inputdata
     let dataIndex = 0;
-
-    // Zapamiętaj oryginalną funkcję prompt
     const originalPrompt = window.prompt;
 
-    // Zastąp funkcję prompt funkcją, która zwraca kolejne wartości z inputdata
     window.prompt = function() {
         if (dataIndex < inputdata.length) {
             const value = inputdata[dataIndex];
@@ -100,7 +141,6 @@ function checkifgood(jsCode) {
             console.log(`Automatycznie uzupełniono prompt wartością: ${value}`);
             return value;
         } else {
-            // Jeśli inputdata zostało już w całości użyte, zwróć oryginalną funkcję prompt
             return originalPrompt.apply(window, arguments);
         }
     };
@@ -114,18 +154,14 @@ function checkifgood(jsCode) {
     };
 
     try {
-        // Wykonaj zmodyfikowany kod JavaScripta
         eval(modifiedCode);
         
-        // Przywróć oryginalną funkcję prompt
         window.prompt = originalPrompt;
 
-        // Pobierz ostatni log z konsoli
         const latestLog = consoleLogs[consoleLogs.length - 1] || 'Brak nowych logów w konsoli';
 
         console.log('Najnowsza wartość z konsoli:', latestLog);
 
-        // Sprawdzenie, czy ostatni log z konsoli jest równy ostatniemu elementowi z outputdata
         const expectedOutput = outputdata[outputdata.length - 1];
         const resultMessage = (latestLog.includes(expectedOutput)) 
             ? `Zgadza się: ${latestLog}`
@@ -135,9 +171,8 @@ function checkifgood(jsCode) {
     } catch (error) {
         console.error('Błąd podczas wykonywania kodu JavaScripta:', error);
         clearOutput() 
-        addOutput('Błąd: ' + error); // Wyświetl błąd w textarea
+        addOutput('Błąd: ' + error); 
     } finally {
-        // Przywróć oryginalną funkcję console.log
         console.log = originalConsoleLog;
     }
 }
@@ -146,13 +181,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const consoleLogs = [];
     const originalConsoleLog = console.log;
 
-    // Nadpisz console.log, aby przechwytywać logi
     console.log = function(...args) {
         const logMessage = args.join(' ');
         consoleLogs.push(logMessage);
         originalConsoleLog.apply(console, args);
         
-        // Sprawdź, czy log zaczyna się od "UserLog:"
         if (logMessage.startsWith('UserLog:')) {
             let formatedlog = logMessage.substring(9)
             addOutput(formatedlog);
@@ -180,12 +213,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function executeJavaScript(jsCode) {
         try {
-            // Dodaj prefix "UserLog:" do każdego console.log
+            
             const modifiedCode = jsCode.replace(/console\.log\(/g, 'console.log("UserLog:",');
-            eval(modifiedCode); // Wykonaj zmodyfikowany kod JavaScripta
+            eval(modifiedCode); 
         } catch (error) {
             console.error('Błąd podczas wykonywania kodu JavaScripta:', error);
-            addOutput('Błąd: ' + error); // Wyświetl błąd w textarea
+            addOutput('Błąd: ' + error); 
         }
     }
 
@@ -204,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   </div>  
-    <header class="header">
+    <header class="header" id="header">
         <div class="menu" style="border: 1px solid #2e3b4f;">
           <nav>
             <div class="menu_objects">
@@ -326,6 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
       <script>
 document.addEventListener('DOMContentLoaded', function() {
+
     document.body.style.overflow = 'hidden';
 
     fetch('/getTasks', {
@@ -342,9 +376,9 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
         if (data && data.tasks) {
-            const level1Div = document.querySelector('.level1'); // Znajdź div level1
+            const level1Div = document.querySelector('.level1'); // wwwww
             data.tasks.forEach(task => {
-                if (task.HardLevel === 1) {
+                if (task.HardLevel ) {
                     
                     const taskDiv = document.createElement('div');
                     taskDiv.classList.add('task'); 
@@ -360,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     level1Div.appendChild(taskDiv);
                 }
             });
-
+            
             class Task {
                 constructor(taskId, taskName, hardLevel, points, inputData, outputData, description) {
                     this.taskId = taskId;
@@ -414,6 +448,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function displayTaskData(task) {
     const container = document.querySelector('.cointainers_task');
     const taskDetailsDiv = document.createElement('div');
+    const header = document.getElementById("header");
+    header.style.marginTop = "0px"
+
     taskDetailsDiv.classList.add('task-details');
   
     taskDetailsDiv.innerHTML = `
@@ -463,6 +500,14 @@ function displayTaskData(task) {
         
         
         });
+
+
+        window.addEventListener("resize", function () {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            console.log("Aktualna szerokość okna:", width, "px");
+            console.log("Aktualna wysokość okna:", height, "px");
+});
 </script>
 </body>
 </html>
