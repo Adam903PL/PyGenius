@@ -162,7 +162,7 @@ def getTask():
         cursor = connection.cursor()
 
         query = """select TaskId,TaskName, HardLevel, Points, InputData, OutPutData, Description 
-                   from TasksHeader
+                   from TaskHeader
                    order by HardLevel asc"""
         cursor.execute(query)
 
@@ -193,7 +193,7 @@ try:
     with open("logs.txt", "a") as file:
         file.write(f"Dane: {dane}\n")
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f"An error occurrfed: {e}")
 
 
 if __name__ == '__main__':

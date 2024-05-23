@@ -1,8 +1,12 @@
 html, body {
     height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #172033;
+    background: linear-gradient(163deg, rgba(128, 89, 253, 1) 0%, rgba(128, 89, 253, 1) 25%, rgba(255, 195, 31, 1) 86%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 :root{
@@ -11,14 +15,84 @@ html, body {
 }
 
 
-.task_sett{
-    width: 70%;
-    height: 150px;
+.panel {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    color: #fff;
+    width: calc(70%-20px);
     margin: 100px 15% 60px 15%;
     border-radius: 20px;
     background-color: #0f172a;
     border: 1px solid #2e3b4f;
+}
 
+.panel h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.panel .form-group {
+    margin-bottom: 20px;
+}
+
+.panel label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.panel select,
+.panel input[type="range"] {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+.difficulty-points {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.difficulty-points div {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.difficulty-points div:last-child {
+    margin-right: 0;
+}
+
+.panel .languages {
+    display: flex;
+    justify-content: space-between;
+}
+
+.panel .language {
+    flex: 1;
+    text-align: center;
+    margin: 0 5px;
+}
+.panel .language input {
+    display: none; 
+}
+.panel .language label {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #444;
+    transition: background-color 0.3s ease;
+}
+
+.panel .language label:hover {
+    background-color: #555;
+}
+
+.panel .language input:checked + label {
+    background-color: #666;
 }
 
 .startButton{

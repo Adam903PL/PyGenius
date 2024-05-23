@@ -1,175 +1,175 @@
-:root{
-    --color: linear-gradient(90deg, rgba(110, 0, 213, 0.65) 0%, rgba(77, 77, 204, 0.65) 47%, rgba(0,212,255,0.65) 100%);
+:root {
+    --gradient-bg: linear-gradient(90deg, rgba(110, 0, 213, 0.65) 0%, rgba(77, 77, 204, 0.65) 47%, rgba(0, 212, 255, 0.65) 100%);
+    --dark-bg: #1e1e2f;
+    --input-bg: #2e2e4e;
+    --input-border: #5a5a89;
+    --input-focus-bg: #4e4e7a;
+    --button-bg: #4e4e7a;
+    --button-hover-bg: #6a6abf;
+    --text-color: #ffffff;
+    --input-text-color: #d1d1e0;
 }
 
-body{
+body {
     width: 100%;
     height: 100vh;
-    margin: 0px; 
-    padding: 0px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(110, 0, 213, 0.65) 0%, rgba(77, 77, 204, 0.65) 47%, rgba(0,212,255,0.65) 100%);
+    margin: 0;
+    padding: 0;
+    background-color: rgba(128, 89, 253, 1);
+    background-image: linear-gradient(163deg, rgba(128, 89, 253, 1) 0%, rgba(128, 89, 253, 1) 25%, rgba(255, 195, 31, 1) 86%);
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
-
-
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
 }
-
 
 .element {
-    background: linear-gradient(
-      90deg,
-      rgba(251, 131, 131, 0.1) 0%,
-      rgba(254, 81, 150, 0.1) 100%
-    );
-    background-blend-mode: ;
-    transform: translate(0px, 0px) scale(2.9, 2.6);
-    box-shadow:
-      inset 0px 5px 5px 0px rgba(255, 255, 255, 0.1),
-      inset 0px -5px 5px 0px rgba(254, 81, 150, 0.1);
+    /* background: var(--dark-bg)   ; */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    width: 25%;
-    height: 35vh;
-    border-radius:15px;
+    width: 90%;
+    height: 70%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 15px;
     display: flex;
     flex-direction: row;
-
-}
-  
-
-
-
-
-.login_elements{
-    width: 60%;
-    height: 100%;
-    display: flex;
     align-items: center;
     justify-content: center;
-
-    letter-spacing: 1px;    
+    transition: box-shadow 0.3s ease-in-out;
 }
-
-.pics-container{
-    width:90%;
-    height: 90%;
-    background-color: white;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-
-    flex-direction: column;    
-}
-
-
-.pic{
-    width: 100%;
-    height: 10vh;
-    align-self: center;
-    text-align: center; 
-}
-
-
-.login_elements img {
-    margin-top: 1vh;
-    max-width: 30%;
-    max-height: 30%;
-    object-fit: contain; 
-
-}
-
-
-
-.login_png {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.login_png img {
-    max-width: 95%;
-    max-height: 95%;
-    object-fit: contain; 
     
+
+.element:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+    
 
-
-
-.pics-container h4{
-    margin: 0px;
-    padding: 0px;
-    font-family: "Orbitron", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-
-
-.login{
-    width: 80%;
-    height: 3vh;
-    display: flex;
-    flex-direction: row;
-    align-items: left;
-    gap: 15%;
-}
-
-
-.login label{
-    font-size: 0.75em;
-    font-family: 'Roboto', sans-serif;
-
-}
-
-.login{
+.login_elements {
+    width: 60%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
+.pics-container {
+    width: 100%;
+    background-color: var(--input-bg);
+    border-radius: 20px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-transition: transform 0.8s ease-in-out;
+    -moz-transition: transform 0.8s ease-in-out;
+    -ms-transition: transform 0.8s ease-in-out;
+    -o-transition: transform 0.8s ease-in-out;
+    transition: transform 0.8s ease-in-out;
+}
+.pics-container:hover{
+    transform: scale(1.1)
 
-.login input{
-    width: 90%;
-    height: 2vh;
-    font-size: 0.50em;
+}
+
+.pics-container img {
+    max-width: 100px;
+    margin-bottom: 1rem;
+}
+
+.pics-container h4 {
+    margin: 0 0 1rem 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+
+.login label {
+    font-size: 0.875rem;
+    color: var(--text-color);
+}
+
+.login input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
     border-radius: 5px;
-    border: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding:3%;
-
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text-color);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .login input:focus {
     outline: none;
-    background: var(--color);
-    color: white;
-
+    background-color: var(--input-focus-bg);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
-
-
 
 .login button {
-    width: 50%;
-    font-size: 0.70em;
-
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
     border-radius: 20px;
-    border: 0px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: none;
+    background-color: var(--button-bg);
+    color: var(--text-color);
     cursor: pointer;
-    transition: ease-in-out 0.2ms;
-    margin-top: 5%;
-  }
-  
-  .login button:hover {
- 
-    background: var(--color);
-    color: white;
-  }
+    transition: background-color 0.3s, transform 0.3s;
+}
 
+.login button:hover {
+    background-color: var(--button-hover-bg);
+}
 
-  .login button:active {
+.login button:active {
     transform: scale(1.1);
 }
+
+.login_png {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .login_png {
+        display: flex;
+        width: 40%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login_png img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 516px) {
+    .login_elements{
+        width: 75%;
+    }
+
+}
+
+/* .back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #ff5f5f;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #ff3333;
+} */

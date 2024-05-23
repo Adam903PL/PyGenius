@@ -201,7 +201,7 @@ nav{
     height: 90%;
 }
 
-.menu_objects .logo img {
+.menu_objects .logo #image-grid img {
     height: 40px;
     object-fit: contain;
 }

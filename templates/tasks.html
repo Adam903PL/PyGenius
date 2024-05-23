@@ -56,7 +56,91 @@
         <textarea class="output" rows="20" cols="80" readonly id="outpudata"></textarea>
       </div>
     </div>
-  <script>
+
+
+   
+ <script>
+    function addOutput(output) {
+        const outputTextarea = document.getElementById('outpudata');
+        outputTextarea.value += output + '\n'; // Dodaj nową wartość do istniejącej zawartości
+    }
+
+    function clearOutput() {
+        const outputTextarea = document.getElementById('outpudata');
+        outputTextarea.value = '';
+    }
+
+function checkifgood(jsCode) {
+    // Zamień wszystkie wystąpienia console.log na console.log("UserLog:",)
+    const modifiedCode = jsCode.replace(/console\.log\(/g, 'console.log("UserLog:",');
+
+    let inputdata = document.getElementById("inputData").innerText.trim()
+    let outputdata = document.getElementById("outputData").innerText.trim()
+    inputdata = inputdata.substring(12)
+    outputdata = outputdata.substring(13)
+    inputdata = inputdata.split(" ")
+    outputdata = outputdata.split(" ")
+
+
+    alert(inputdata+" "+ outputdata)
+    // input data będzie po tej operacji 3 5  a ma być lista [3,5]
+    
+
+    // Zmienna przechowująca indeks aktualnie używanej wartości z inputdata
+    let dataIndex = 0;
+
+    // Zapamiętaj oryginalną funkcję prompt
+    const originalPrompt = window.prompt;
+
+    // Zastąp funkcję prompt funkcją, która zwraca kolejne wartości z inputdata
+    window.prompt = function() {
+        if (dataIndex < inputdata.length) {
+            const value = inputdata[dataIndex];
+            dataIndex++;
+            console.log(`Automatycznie uzupełniono prompt wartością: ${value}`);
+            return value;
+        } else {
+            // Jeśli inputdata zostało już w całości użyte, zwróć oryginalną funkcję prompt
+            return originalPrompt.apply(window, arguments);
+        }
+    };
+
+    // Przechwytywanie logów konsoli
+    const consoleLogs = [];
+    const originalConsoleLog = console.log;
+    console.log = function(...args) {
+        consoleLogs.push(args.join(' '));
+        originalConsoleLog.apply(console, args);
+    };
+
+    try {
+        // Wykonaj zmodyfikowany kod JavaScripta
+        eval(modifiedCode);
+        
+        // Przywróć oryginalną funkcję prompt
+        window.prompt = originalPrompt;
+
+        // Pobierz ostatni log z konsoli
+        const latestLog = consoleLogs[consoleLogs.length - 1] || 'Brak nowych logów w konsoli';
+
+        console.log('Najnowsza wartość z konsoli:', latestLog);
+
+        // Sprawdzenie, czy ostatni log z konsoli jest równy ostatniemu elementowi z outputdata
+        const expectedOutput = outputdata[outputdata.length - 1];
+        const resultMessage = (latestLog.includes(expectedOutput)) 
+            ? `Zgadza się: ${latestLog}`
+            : `Nie zgadza się. Oczekiwano: ${expectedOutput}, ale otrzymano: ${latestLog}`;
+        clearOutput() 
+        addOutput(resultMessage);
+    } catch (error) {
+        console.error('Błąd podczas wykonywania kodu JavaScripta:', error);
+        clearOutput() 
+        addOutput('Błąd: ' + error); // Wyświetl błąd w textarea
+    } finally {
+        // Przywróć oryginalną funkcję console.log
+        console.log = originalConsoleLog;
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const consoleLogs = [];
@@ -86,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
           const jsCode = document.getElementById('usercode').value;
             clearOutput(); 
-            executeJavaScript(jsCode);
 
+            checkifgood(jsCode);
 
             alert("kod poszedł")
 
@@ -106,22 +190,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    function addOutput(output) {
-        const outputTextarea = document.getElementById('outpudata');
-        outputTextarea.value += output + '\n'; // Dodaj nową wartość do istniejącej zawartości
-    }
 
-    // Czyszczenie textarea przed każdym nowym wykonaniem kodu
-    function clearOutput() {
-        const outputTextarea = document.getElementById('outpudata');
-        outputTextarea.value = '';
-    }
 });
 
 
 
   </script>
-    
+        <script>
+ 
+      </script>
+  
+
+
+
   </div>  
     <header class="header">
         <div class="menu" style="border: 1px solid #2e3b4f;">
@@ -174,9 +255,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-      <div class="task_sett">
-          
-      </div>
+      <div class="panel">
+        <h2>Task Sorting Panel</h2>
+
+        <div class="form-group difficulty-points">
+            <div>
+                <label for="difficulty">Poziom Trudności (1-5):</label>
+                <select id="difficulty">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div>
+                <label for="points">Punkty za zadania:</label>
+                <input type="range" id="points" name="points" min="10" max="30" step="5" value="10">
+                <output id="pointsOutput">10</output>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Język Programowania:</label>
+            <div class="languages">
+                <div class="language">
+                    <input type="radio" id="python" name="language" value="python" checked>
+                    <label for="python">Python</label>
+                </div>
+                <div class="language">
+                    <input type="radio" id="javascript" name="language" value="javascript">
+                    <label for="javascript">JavaScript</label>
+                </div>
+                <div class="language">
+                    <input type="radio" id="php" name="language" value="php">
+                    <label for="php">PHP</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pointsInput = document.getElementById('points');
+        const pointsOutput = document.getElementById('pointsOutput');
+
+        pointsInput.addEventListener('input', function () {
+            pointsOutput.value = pointsInput.value;
+        });
+    </script>
+
       <div class="level1">
       </div>
 <script>
@@ -255,10 +382,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     document.body.scrollTop = 0;
                     document.documentElement.scrollTop = 0;
-                    var body = document.querySelector("body");
+                    let body = document.querySelector("body");
                     body.style.overflow = "hidden";
 
-                    var cointainersTask = document.querySelector(".cointainers_task");
+                    let cointainersTask = document.querySelector(".cointainers_task");
                     cointainersTask.classList.toggle("show");
 
                     const taskId = event.target.getAttribute('data-task-id');
@@ -298,9 +425,9 @@ function displayTaskData(task) {
         <h3>Opis zadania</h3>
         <p>${task.description}</p>
         <h3>Przykładowe dane wejściowe</h3>
-        <p>Input Data: ${task.inputData}</p>
+        <p id="inputData">Input Data: ${task.inputData}</p>
         <h3>Przykładowe dane wyjściowe</h3>
-        <p>OutPut Data: ${task.outputData}</p>
+        <p id="outputData">OutPut Data: ${task.outputData}</p>
         <div class="send_task_go_code"> 
           <button class="send_task" id="send_task">Wyślij odpowiedź</button>
           <button class="go_code" id="go_code">Uruchom kod</button>
@@ -318,6 +445,24 @@ function displayTaskData(task) {
           event.preventDefault(); 
       }
   });
+
+
+
+  
+
+  document.getElementById("menu_slider").addEventListener("click", function () {
+            var element = document.querySelector(".slider_div");
+            element.classList.toggle("show");
+
+            var element = document.querySelector(".menu");
+            if (element.style.borderRadius === "15px 15px 0px 0px") {
+                element.style.borderRadius = "15px";
+            } else{
+                element.style.borderRadius = "15px 15px 0px 0px";
+            }
+        
+        
+        });
 </script>
 </body>
 </html>

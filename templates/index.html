@@ -14,8 +14,9 @@
             <div class="menu">
               <nav>
                 <div class="menu_objects">
-                    <div class="logo">
-                        <img src="../static/pictures/Zasób 1.svg" alt="Logo" />
+                    <div class="logo" id="image-grid">
+                      <img src="../static/pictures/Zasób 1.svg" alt="Logo 1"   />
+                      <img src="../static/pictures/Zasób 2.svg" alt="Logo 2" />
                     </div>
                   <div class="center">
                     <div class="menu-item">
@@ -68,9 +69,48 @@
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis, consectetur expedita totam aut deserunt inventore. Neque eligendi voluptatum omnis modi laudantium in eos blanditiis 
                     </p>
                     <div class="image-container">
-                        <img src="../static/pictures/pic.png">
+                        <img src="../static/pictures/cos.jpg">
+                        <img src="../static/pictures/another.jpg">
                     </div>
                 </div>
+                <div class="theme-switcher" onclick="changeImage()">
+                    <!-- <div class="circle light-theme">🌞</div>
+                    <div class="circle dark-theme">🌙</div> -->
+                  <div class="switch"></div>
+              </div>  
+              <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const switcher = document.querySelector('.theme-switcher');
+    const body = document.body;
+    const slideDiv = document.querySelector('.slid');
+    const cards = document.querySelectorAll('.card'); // Zmieniamy na querySelectorAll
+    const main_name = document.querySelector('.title');
+    const h1 = document.querySelector('h1');
+    const h4 = document.querySelector('h4');
+
+    switcher.addEventListener('click', function () {
+        body.classList.toggle('dark-mode');
+        slideDiv.classList.toggle('light_mode');
+        cards.forEach(function(card) { 
+            card.classList.toggle('dark_mode');
+        });
+        if (h1) {
+            h1.classList.toggle('dark_mode_font');
+        }
+        if (h4) {
+            h4.classList.toggle('dark_mode_font');
+        }
+        if (main_name) {
+            main_name.classList.toggle('light_mode_font');
+        }
+    });
+});
+
+
+
+
+
+              </script>
             </div>
 
             </div>
@@ -79,30 +119,26 @@
           <div class="slid">
                 <div class="inn_slid">
                     <h5 class="text_how">How it works</h5>
-                    <h1>It's time to take action</h1>
-                    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore earum adipisci nisi quidem dignissimos <br>modi cupiditate dolores! Earum fugit, sit iusto reprehenderit quo provident, laboriosam vel sequi veniam, delectus ipsa.
+                    <h1 class="h1">It's time to take action</h1>
+                    <h4 class="h4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore earum adipisci nisi quidem dignissimos <br>modi cupiditate dolores! Earum fugit, sit iusto reprehenderit quo provident, laboriosam vel sequi veniam, delectus ipsa.
+                                          
                     </h4>
                 </div>
                 <div class="white_divs">
                     <div class="card">
                         <h3 class="card-title">Created with the latest technologies</h3>
                         <p class="card-description">
-                            We ensure our code is not just efficient and robust, but also highly adaptable and
-                            intuitive for developers.
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, omnis eveniet consequuntur explicabo 
                         </p>
                     </div>
                     <div class="card">
                         <h3 class="card-title">Created with the latest technologies</h3>
-                        <p class="card-description">
-                            We ensure our code is not just efficient and robust, but also highly adaptable and
-                            intuitive for developers.
+                        <p class="card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem natus dolor vel esse at tempora ?
                         </p>
                     </div>
                     <div class="card">
                         <h3 class="card-title">Created with the latest technologies</h3>
-                        <p class="card-description">
-                            We ensure our code is not just efficient and robust, but also highly adaptable and
-                            intuitive for developers.
+                        <p class="card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis minima veritatis id magni, deserunt, 
                         </p>
                     </div>
                 </div>
