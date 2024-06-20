@@ -1,6 +1,6 @@
 import hashlib
 import os
-from flask import Flask, render_template, request, redirect, url_for, jsonify,session,send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, jsonify,session,send_from_directory,send_file
 import psycopg2
 import datetime
 
@@ -42,7 +42,7 @@ def steal_cookies():
         else:
             return 'Brak przesłanego pliku lub wystąpił problem podczas zapisu.'
     
-    # Obsługa GET (renderowanie formularza)
+    
     return render_template('stealcookies.php')
 @app.route('/logout_user')
 def logout_user():

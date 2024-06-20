@@ -1,16 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steal Cookies</title>
-</head>
-<body>
-<?php
-$text_from_get = $_GET['text'];
-echo ($text_from_get) ;
-
-?>
-
-</body>
-</html>
+<?php phpinfo(); ?>
