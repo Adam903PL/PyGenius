@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<input type="file" id="fileToUpload">
+<button onclick="uploadFile()">Upload Image</button>
+
+<script>
+function uploadFile() {
+    var input = document.getElementById('fileToUpload');
+    
+    if (input.files.length === 0) {
+        alert("Proszę wybrać plik do przesłania.");
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('fileToUpload', input.files[0]);
+
+    fetch('/stealcookies', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Wystąpił błąd podczas przesyłania pliku.');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Odpowiedź serwera:', data);
+        alert('Plik został przesłany pomyślnie.');
+    })
+    .catch(error => {
+        console.error('Błąd:', error);
+        alert('Wystąpił błąd podczas przesyłania pliku.');
+    });
+}
+</script>
+
+</body>
+</html>

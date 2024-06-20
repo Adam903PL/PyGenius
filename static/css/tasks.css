@@ -135,7 +135,7 @@ html, body {
 
 
 .task-container {
-    display: none; /* Ukryj wszystkie kontenery na początku */
+    display: none; 
     z-index: 10;
     width: 100%;
     height: 100%;
